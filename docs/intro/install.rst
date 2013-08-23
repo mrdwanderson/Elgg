@@ -57,7 +57,21 @@ to `set the permissions on the directory`_.
 
 .. _set the permissions on the directory: http://en.wikipedia.org/wiki/Filesystem_permissions#Traditional_Unix_permissions
 
+
 TODO: What is the recommended setting? 755? 644?
+Suggestion: Directories should be 755 and files should be 644.
+
+On a hosted installation you will need to do the same in a directory outside of your document root. Your hosting service provider can help you with this or do this for you. If not, get another hosting service.
+
+Example: Debian specific. Ubuntu Apache 2 stand alone server, no hosting.
+Create a directory: sudo mkdir /var/data
+sudo chown -R www-data:www-data /var/data 
+sudo chmod -R 755 /var/data
+
+This means that the user "www-data" and the group "www-data" (www-data is apache 2) will be able to write to the "/var/data/" directory but other users and groups can only read. This creates "/var/data/" outside "document root" (/var/www/) which means "/var/data" is above document root (/var/www/) and is secure. Elgg has access to the directory "/var/data/".
+
+When Elgg writes to this directory (/var/data/) it will be able to create the user, group and permissions for it's files and directories.
+
 
 If you are using a graphical FTP client to upload files, you can
 usually set permissions by right clicking on the folder and
